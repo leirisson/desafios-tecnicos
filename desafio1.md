@@ -25,6 +25,21 @@ Uma aplicação simples de agenda de contatos pessoais, onde o usuário cadastra
 - RNF04: Frontend em Next.js com App Router, formulário controlado e listagem responsiva.
 - RNF05: Tempo de resposta da listagem < 300ms para até 1.000 registros.
 
+**Entidades**
+
+`Contato`
+
+| Atributo | Tipo | Observações |
+| --- | --- | --- |
+| id | Long | PK |
+| nome | String | obrigatório |
+| telefone | String | obrigatório, único, formato BR |
+| email | String | opcional, validado se preenchido |
+| categoria | Enum (Pessoal, Trabalho, Família) | - |
+| ativo | boolean | soft delete |
+
+Sem relacionamentos com outras entidades — modelo único.
+
 ---
 
 [← Voltar ao índice](README.md) | [Próximo: Desafio 2 →](desafio2.md)

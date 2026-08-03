@@ -25,6 +25,32 @@ Um "to-do list" que vai além do básico: tarefas pertencem a categorias, têm p
 - RNF04: Frontend deve usar Server Components do Next.js para a listagem inicial e Client Components apenas onde há interatividade.
 - RNF05: Cobertura de testes unitários no backend ≥ 60% nas camadas de service.
 
+**Entidades**
+
+`Categoria`
+
+| Atributo | Tipo | Observações |
+| --- | --- | --- |
+| id | Long | PK |
+| nome | String | - |
+
+`Tarefa`
+
+| Atributo | Tipo | Observações |
+| --- | --- | --- |
+| id | Long | PK |
+| titulo | String | obrigatório |
+| descricao | String | opcional |
+| prioridade | Enum (Baixa, Média, Alta) | - |
+| dataVencimento | Date | - |
+| status | Enum (Pendente, Concluída) | - |
+| categoriaId | Long | FK → Categoria |
+
+*Atrasada* não é um campo persistido — é derivado no backend (`dataVencimento < hoje && status != Concluída`).
+
+**Relacionamentos**
+- Categoria 1:N Tarefa (uma categoria tem várias tarefas; não pode ser excluída se houver tarefas vinculadas).
+
 ---
 
 [← Desafio 1](desafio1.md) | [Índice](README.md) | [Próximo: Desafio 3 →](desafio3.md)

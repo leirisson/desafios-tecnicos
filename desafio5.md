@@ -26,6 +26,40 @@ Um sistema de agendamento (pense em salas de reunião ou horários de atendiment
 - RNF04: Testes específicos simulando duas requisições concorrentes para o mesmo horário.
 - RNF05: Horários armazenados e manipulados sempre em UTC, convertidos para exibição no frontend.
 
+**Entidades**
+
+`Recurso`
+
+| Atributo | Tipo | Observações |
+| --- | --- | --- |
+| id | Long | PK |
+| nome | String | ex: sala, equipamento |
+| tipo | String | - |
+
+`Usuario`
+
+| Atributo | Tipo | Observações |
+| --- | --- | --- |
+| id | Long | PK |
+| nome | String | - |
+| email | String | - |
+
+`Reserva`
+
+| Atributo | Tipo | Observações |
+| --- | --- | --- |
+| id | Long | PK |
+| recursoId | Long | FK → Recurso |
+| usuarioId | Long | FK → Usuario |
+| dataHoraInicio | Timestamp (UTC) | - |
+| dataHoraFim | Timestamp (UTC) | - |
+| status | Enum (Ativa, Cancelada) | - |
+| version | Integer | lock otimista, evita conflito de concorrência |
+
+**Relacionamentos**
+- Recurso 1:N Reserva (não pode haver sobreposição de horário para o mesmo recurso).
+- Usuario 1:N Reserva (máx. 3 reservas ativas simultâneas por usuário).
+
 ---
 
 [← Desafio 4](desafio4.md) | [Índice](README.md) | [Próximo: Desafio 6 →](desafio6.md)

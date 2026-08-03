@@ -28,6 +28,33 @@ Uma aplicação interna de gestão onde diferentes tipos de usuário (Admin, Ger
 - RNF04: Nenhum dado sensível (senha, token) deve aparecer em logs.
 - RNF05: Rate limiting no endpoint de login (ex: máx. 10 requisições/minuto por IP).
 
+**Entidades**
+
+`Usuario`
+
+| Atributo | Tipo | Observações |
+| --- | --- | --- |
+| id | Long | PK |
+| nome | String | - |
+| email | String | único, login |
+| senhaHash | String | BCrypt, nunca texto plano |
+| perfil | Enum (Admin, Gerente, Colaborador) | um único perfil por usuário |
+| tentativasLoginInvalidas | Integer | reseta no login bem-sucedido |
+| bloqueadoAte | Timestamp | nulo se não bloqueado |
+
+`RefreshToken`
+
+| Atributo | Tipo | Observações |
+| --- | --- | --- |
+| id | Long | PK |
+| token | String | longo, único |
+| usuarioId | Long | FK → Usuario |
+| expiraEm | Timestamp | - |
+
+**Relacionamentos**
+- Usuario 1:N RefreshToken (um usuário pode ter múltiplos tokens ativos, ex: vários dispositivos).
+- Perfil é atributo do próprio Usuario, não entidade separada (1 perfil fixo por usuário).
+
 ---
 
 [← Desafio 3](desafio3.md) | [Índice](README.md) | [Próximo: Desafio 5 →](desafio5.md)

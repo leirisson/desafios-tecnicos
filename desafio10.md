@@ -27,6 +27,54 @@ Uma plataforma tipo marketplace que conecta demandas (pedidos de serviço) com p
 - RNF04: Timeout e escalonamento de rodada implementados via scheduler confiável (sobrevive a reinício do serviço).
 - RNF05: Frontend com atualização em tempo real do status (WebSocket ou polling curto) e testes E2E cobrindo o fluxo completo de criação → match → aceite.
 
+**Entidades**
+
+`Cliente`
+
+| Atributo | Tipo | Observações |
+| --- | --- | --- |
+| id | Long | PK |
+| nome | String | - |
+
+`Prestador`
+
+| Atributo | Tipo | Observações |
+| --- | --- | --- |
+| id | Long | PK |
+| nome | String | - |
+| categoria | String | usado no matching |
+| localizacao | Geolocalização (lat/long) | usado no matching |
+| disponivel | boolean | - |
+
+`Demanda`
+
+| Atributo | Tipo | Observações |
+| --- | --- | --- |
+| id | Long | PK |
+| clienteId | Long | FK → Cliente |
+| categoria | String | - |
+| localizacao | Geolocalização (lat/long) | - |
+| status | Enum (Buscando, Notificado, Aceito, Expirado) | - |
+| raioBusca | Double | aumenta a cada rodada sem aceite |
+| rodadaAtual | Integer | máximo 3 rodadas |
+
+`Notificacao` (Match)
+
+| Atributo | Tipo | Observações |
+| --- | --- | --- |
+| id | Long | PK |
+| demandaId | Long | FK → Demanda |
+| prestadorId | Long | FK → Prestador |
+| rodada | Integer | - |
+| status | Enum (Enviada, Aceita, Expirada, VagaPreenchida) | - |
+| enviadaEm | Timestamp | - |
+| expiraEm | Timestamp | 10 minutos após envio |
+
+**Relacionamentos**
+- Cliente 1:N Demanda.
+- Demanda N:N Prestador, via Notificacao (até 5 prestadores notificados por rodada, até 3 rodadas).
+- Aceite exige lock otimista/transação atômica para garantir que só um prestador feche o match.
+
 ---
 
 [← Desafio 9](desafio9.md) | [Índice](README.md)

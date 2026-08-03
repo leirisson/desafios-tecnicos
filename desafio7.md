@@ -25,6 +25,43 @@ Um painel de senha/atendimento (pense em clínica ou órgão público) onde o st
 - RNF04: Estado da fila deve sobreviver a reinício do backend (persistido em banco, não apenas em memória).
 - RNF05: Painel público deve funcionar mesmo com múltiplas abas/dispositivos simultâneos exibindo o mesmo estado.
 
+**Entidades**
+
+`Senha`
+
+| Atributo | Tipo | Observações |
+| --- | --- | --- |
+| id | Long | PK |
+| numero | String | ex: N001, P001 |
+| prioridade | Enum (Normal, Preferencial) | intercalação: 2 normais : 1 preferencial |
+| status | Enum (Aguardando, Chamada, EmAtendimento, Concluída, Cancelada) | - |
+| criadaEm | Timestamp | - |
+| chamadaEm | Timestamp | - |
+| vezesRetornada | Integer | volta 1x ao fim da fila; na 2ª ausência é cancelada |
+
+`Atendente`
+
+| Atributo | Tipo | Observações |
+| --- | --- | --- |
+| id | Long | PK |
+| nome | String | - |
+| emAtendimento | boolean | só chama próxima senha se false |
+
+`Atendimento`
+
+| Atributo | Tipo | Observações |
+| --- | --- | --- |
+| id | Long | PK |
+| senhaId | Long | FK → Senha |
+| atendenteId | Long | FK → Atendente |
+| inicioEm | Timestamp | - |
+| fimEm | Timestamp | - |
+
+**Relacionamentos**
+- Atendente 1:N Atendimento.
+- Senha 1:1 Atendimento (por chamada realizada).
+- Estado da fila é persistido em banco (sobrevive a reinício do backend).
+
 ---
 
 [← Desafio 6](desafio6.md) | [Índice](README.md) | [Próximo: Desafio 8 →](desafio8.md)

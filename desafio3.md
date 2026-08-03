@@ -25,6 +25,30 @@ Um catálogo de produtos (pense em uma pequena loja) com busca textual, filtros 
 - RNF04: Uso de `next/image` para otimização de imagens dos produtos.
 - RNF05: Testes de integração cobrindo os cenários de filtro combinado.
 
+**Entidades**
+
+`Categoria`
+
+| Atributo | Tipo | Observações |
+| --- | --- | --- |
+| id | Long | PK |
+| nome | String | - |
+
+`Produto`
+
+| Atributo | Tipo | Observações |
+| --- | --- | --- |
+| id | Long | PK |
+| nome | String | usado na busca textual |
+| descricao | String | usado na busca textual |
+| preco | BigDecimal | > 0, exibido em R$ |
+| quantidadeEstoque | Integer | 0 → "Indisponível" (derivado) |
+| status | Enum (Ativo, Inativo) | - |
+| categoriaId | Long | FK → Categoria |
+
+**Relacionamentos**
+- Categoria 1:N Produto.
+
 ---
 
 [← Desafio 2](desafio2.md) | [Índice](README.md) | [Próximo: Desafio 4 →](desafio4.md)

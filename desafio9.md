@@ -25,6 +25,49 @@ Uma plataforma SaaS onde múltiplas empresas (tenants) usam o mesmo sistema, mas
 - RNF04: Auditoria de acesso: toda operação sensível registra tenant, usuário e timestamp.
 - RNF05: Tenant identificado no JWT como claim, validado em toda requisição antes de chegar à camada de negócio.
 
+**Entidades**
+
+`Tenant`
+
+| Atributo | Tipo | Observações |
+| --- | --- | --- |
+| id | Long | PK |
+| nome | String | - |
+| identificador | String | slug/subdomínio, único |
+
+`Usuario`
+
+| Atributo | Tipo | Observações |
+| --- | --- | --- |
+| id | Long | PK |
+| nome | String | - |
+| email | String | - |
+| tenantId | Long | FK → Tenant (nulo para super-admin) |
+| role | Enum (SuperAdmin, ...) | super-admin existe fora do conceito de tenant |
+
+`Cliente` (exemplo de recurso de negócio escopado)
+
+| Atributo | Tipo | Observações |
+| --- | --- | --- |
+| id | Long | PK |
+| nome | String | - |
+| tenantId | Long | FK → Tenant, discriminador obrigatório |
+
+`LogAuditoria`
+
+| Atributo | Tipo | Observações |
+| --- | --- | --- |
+| id | Long | PK |
+| tenantId | Long | FK → Tenant |
+| usuarioId | Long | FK → Usuario |
+| acao | String | - |
+| timestamp | Timestamp | - |
+
+**Relacionamentos**
+- Tenant 1:N Usuario.
+- Tenant 1:N (qualquer recurso de negócio, ex: Cliente) — todo dado operacional carrega `tenantId`.
+- Filtro de tenant aplicado transversalmente (ex: Hibernate Filter/interceptor), nunca manual por repository.
+
 ---
 
 [← Desafio 8](desafio8.md) | [Índice](README.md) | [Próximo: Desafio 10 →](desafio10.md)

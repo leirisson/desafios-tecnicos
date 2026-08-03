@@ -26,6 +26,53 @@ Um sistema de cobrança recorrente para prestadores de serviço (assinaturas men
 - RNF04: Frontend com Server Actions do Next.js para operações administrativas (suspender/reativar assinatura).
 - RNF05: Testes cobrindo cenários de falha e retry (incluindo o caso de suspensão automática após 3 falhas).
 
+**Entidades**
+
+`Cliente`
+
+| Atributo | Tipo | Observações |
+| --- | --- | --- |
+| id | Long | PK |
+| nome | String | - |
+| email | String | - |
+
+`Plano`
+
+| Atributo | Tipo | Observações |
+| --- | --- | --- |
+| id | Long | PK |
+| nome | String | - |
+| valor | BigDecimal | - |
+| periodicidade | String | ex: mensal |
+
+`Assinatura`
+
+| Atributo | Tipo | Observações |
+| --- | --- | --- |
+| id | Long | PK |
+| clienteId | Long | FK → Cliente |
+| planoId | Long | FK → Plano |
+| dataContrato | Date | define a data de geração mensal |
+| status | Enum (Ativa, Suspensa, Cancelada) | suspensa após 3 falhas consecutivas |
+| falhasConsecutivas | Integer | reseta a cada cobrança paga |
+
+`Cobranca`
+
+| Atributo | Tipo | Observações |
+| --- | --- | --- |
+| id | Long | PK |
+| assinaturaId | Long | FK → Assinatura |
+| ciclo | String | chave única junto com assinaturaId (evita duplicidade) |
+| valor | BigDecimal | - |
+| status | Enum (Pendente, Paga, Falhou) | - |
+| tentativaAtual | Integer | retries em 1, 3 e 7 dias |
+| proximaTentativaEm | Timestamp | - |
+
+**Relacionamentos**
+- Cliente 1:N Assinatura; Plano 1:N Assinatura.
+- Assinatura 1:N Cobranca.
+- Constraint única (assinaturaId + ciclo) garante idempotência.
+
 ---
 
 [← Desafio 7](desafio7.md) | [Índice](README.md) | [Próximo: Desafio 9 →](desafio9.md)
