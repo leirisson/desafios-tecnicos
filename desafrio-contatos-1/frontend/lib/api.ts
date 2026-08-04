@@ -27,7 +27,10 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
   }
 
   const text = await response.text();
-  return text ? (JSON.parse(text) as T) : (undefined as T);
+  if (!text) return undefined as T;
+
+  const contentType = response.headers.get("content-type") ?? "";
+  return contentType.includes("application/json") ? (JSON.parse(text) as T) : (text as T);
 }
 
 export function listActiveContacts() {
