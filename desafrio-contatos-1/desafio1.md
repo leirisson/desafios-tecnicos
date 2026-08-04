@@ -21,10 +21,10 @@ Uma aplicação simples de agenda de contatos pessoais, onde o usuário cadastra
 
 **Requisitos não funcionais**
 - RNF01: API REST documentada com OpenAPI/Swagger.
-- RNF02: Validação de entrada no backend (Bean Validation) e no frontend (feedback imediato de erro).
+✅ RNF02: Validação de entrada no backend (Bean Validation) e no frontend (feedback imediato de erro).
 ✅ RNF03: Persistência em PostgreSQL via Spring Data JPA.
-- RNF04: Frontend em Next.js com App Router, formulário controlado e listagem responsiva.
-- RNF05: Tempo de resposta da listagem < 300ms para até 1.000 registros.
+✅ RNF04: Frontend em Next.js com App Router, formulário controlado e listagem responsiva.
+✅ RNF05: Tempo de resposta da listagem < 300ms para até 1.000 registros.
 
 **Entidades**
 
