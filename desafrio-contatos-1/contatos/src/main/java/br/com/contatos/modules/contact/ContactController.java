@@ -18,6 +18,7 @@ import br.com.contatos.modules.contact.useCases.CreateContactUseCase;
 import br.com.contatos.modules.contact.useCases.DisableUseCase;
 import br.com.contatos.modules.contact.useCases.FindByNameUseCase;
 import br.com.contatos.modules.contact.useCases.ListContactActivesUseCase;
+import br.com.contatos.modules.contact.useCases.ToggleFavoriteUseCase;
 import br.com.contatos.modules.contact.useCases.UpdateContactUseCase;
 
 @RestController
@@ -34,6 +35,8 @@ public class ContactController {
     private DisableUseCase disableUseCase;
     @Autowired
     private FindByNameUseCase findByNameUseCase;
+    @Autowired
+    private ToggleFavoriteUseCase toggleFavoriteUseCase;
 
     @PostMapping
     public ResponseEntity<Object> create(@RequestBody ContactEntity request) {
@@ -63,6 +66,11 @@ public class ContactController {
     @GetMapping("/search")
     public ResponseEntity<List<ContactEntity>> searchByname(@RequestParam String name) {
         return this.findByNameUseCase.execute(name);
+    }
+
+    @PutMapping("/favorite/{id}")
+    public ResponseEntity<ContactEntity> toggleFavorite(@PathVariable UUID id) {
+        return ResponseEntity.ok(this.toggleFavoriteUseCase.execute(id));
     }
 
 }
