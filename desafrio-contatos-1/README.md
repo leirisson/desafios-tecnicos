@@ -98,6 +98,10 @@ Tela inicial com os contatos ativos, exibidos em cards com nome, telefone, e-mai
 Formulário de criação de contato com validação dos campos obrigatórios (nome, telefone e categoria) e campo opcional de e-mail.
 ![Formulário de cadastro](prints/forms.png)
 
+**Detalhes do contato**
+Tela de detalhes com as informações completas do contato (telefone e e-mail) e ações para favoritar, editar ou inativar.
+![Detalhes do contato](prints/detalhes.png)
+
 **Favoritos**
 Filtro "Favoritos" da barra lateral exibindo apenas os contatos marcados com estrela.
 ![Contatos favoritos](prints/favoritos.png)
