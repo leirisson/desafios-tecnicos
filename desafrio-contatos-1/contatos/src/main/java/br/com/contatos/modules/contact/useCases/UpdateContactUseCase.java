@@ -1,6 +1,5 @@
 package br.com.contatos.modules.contact.useCases;
 
-import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
