@@ -80,10 +80,32 @@ npm run dev
 
 A aplicação sobe por padrão em `http://localhost:3000`.
 
+### 4. Documentação da API (Swagger)
+
+Com o backend rodando, a documentação interativa (OpenAPI) fica disponível em:
+
+```text
+http://localhost:8080/swagger-ui/index.html
+```
+
 ## Prints
 
-Tela 1
-![Listagem de contatos](prints/main.png)
+**Listagem de contatos**
+Tela inicial com os contatos ativos, exibidos em cards com nome, telefone, e-mail e categoria. A busca por nome e a navegação por categoria (Favoritos, Trabalho, Família, Pessoal) ficam na barra lateral.
+![Listagem de contatos](prints/home.png)
 
-Tela 2
-![Formulário de contato](prints/second.png)
+**Cadastro de contato**
+Formulário de criação de contato com validação dos campos obrigatórios (nome, telefone e categoria) e campo opcional de e-mail.
+![Formulário de cadastro](prints/forms.png)
+
+**Favoritos**
+Filtro "Favoritos" da barra lateral exibindo apenas os contatos marcados com estrela.
+![Contatos favoritos](prints/favoritos.png)
+
+**Lixeira**
+Contatos inativados (soft delete) listados na lixeira, com botão para reativar cada um e voltar a exibi-lo na listagem principal.
+![Lixeira de contatos](prints/lixeira.png)
+
+**Documentação da API (Swagger)**
+Documentação interativa dos endpoints REST do `contact-controller` (criação, listagem, busca, atualização, favoritar e desativar), gerada via springdoc-openapi.
+![Documentação Swagger](prints/doc.png)
