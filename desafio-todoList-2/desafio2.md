@@ -12,18 +12,18 @@ Um "to-do list" que vai além do básico: tarefas pertencem a categorias, têm p
 - Categorias não podem ser excluídas se tiverem tarefas vinculadas.
 
 **Requisitos funcionais**
-- RF01: CRUD de categorias.
-- RF02: CRUD de tarefas, vinculadas a uma categoria.
-- RF03: Marcar tarefa como concluída.
-- RF04: Listar tarefas com filtros combináveis (categoria + prioridade + status).
-- RF05: Dashboard simples mostrando contagem de tarefas atrasadas, pendentes e concluídas.
+- ✅ RF01: CRUD de categorias.
+- ⏳ RF02: CRUD de tarefas, vinculadas a uma categoria.
+- ⏳ RF03: Marcar tarefa como concluída.
+- ⏳ RF04: Listar tarefas com filtros combináveis (categoria + prioridade + status).
+- ⏳ RF05: Dashboard simples mostrando contagem de tarefas atrasadas, pendentes e concluídas.
 
 **Requisitos não funcionais**
-- RNF01: Regra de "atrasada" deve ser calculada no backend, nunca confiar em cálculo do frontend.
-- RNF02: Uso de DTOs para não expor entidades JPA diretamente na API.
-- RNF03: Tratamento de erros padronizado (ex: `@ControllerAdvice` com respostas de erro consistentes).
-- RNF04: Frontend deve usar Server Components do Next.js para a listagem inicial e Client Components apenas onde há interatividade.
-- RNF05: Cobertura de testes unitários no backend ≥ 60% nas camadas de service.
+- ⏳ RNF01: Regra de "atrasada" deve ser calculada no backend, nunca confiar em cálculo do frontend.
+- ⏳ RNF02: Uso de DTOs para não expor entidades JPA diretamente na API.
+- ⏳ RNF03: Tratamento de erros padronizado (ex: `@ControllerAdvice` com respostas de erro consistentes).
+- ⏳ RNF04: Frontend deve usar Server Components do Next.js para a listagem inicial e Client Components apenas onde há interatividade.
+- ⏳ RNF05: Cobertura de testes unitários no backend ≥ 60% nas camadas de service.
 
 **Entidades**
 
