@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +18,7 @@ import br.com.todolist.modules.category.useCases.ListAllCategoryUseCase;
 import br.com.todolist.modules.tasks.dto.CreateTaskDTO;
 import br.com.todolist.modules.tasks.dto.TaskResponseDTO;
 import br.com.todolist.modules.tasks.useCases.CreateTaskUseCase;
+import br.com.todolist.modules.tasks.useCases.DeleteTaskUseCase;
 import br.com.todolist.modules.tasks.useCases.GetTaskByIdUseCase;
 import br.com.todolist.modules.tasks.useCases.ListAllTasksUseCase;
 import br.com.todolist.modules.tasks.useCases.UpdateTaskUseCase;
@@ -31,6 +33,7 @@ public class TaskController {
     private final ListAllTasksUseCase listAllTasksUseCase;
     private final GetTaskByIdUseCase getTaskByIdUseCase;
     private final UpdateTaskUseCase updateTaskUseCase;
+    private final DeleteTaskUseCase deleteTaskUseCase;
 
     @GetMapping
     public ResponseEntity<List<TaskEntity>> list() {
@@ -62,5 +65,10 @@ public class TaskController {
         return ResponseEntity.ok(TaskResponseDTO.from(task));
 
     }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable UUID id){
+        this.deleteTaskUseCase.execute(id);
+    } 
 
 }
