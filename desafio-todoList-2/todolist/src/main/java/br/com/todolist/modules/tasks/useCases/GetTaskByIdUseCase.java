@@ -5,6 +5,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.todolist.erroshandles.ResourceNotFoundException;
 import br.com.todolist.modules.tasks.TaksRepository;
 import br.com.todolist.modules.tasks.TaskEntity;
 
@@ -18,7 +19,7 @@ public class GetTaskByIdUseCase {
         TaskEntity result = this.repository
                 .findById(id)
                 .orElseThrow(
-                        () -> new RuntimeException("Erro ao tentar encontrar a task"));
+                        () -> new ResourceNotFoundException("Erro ao tentar encontrar a task"));
 
         return result;
     }

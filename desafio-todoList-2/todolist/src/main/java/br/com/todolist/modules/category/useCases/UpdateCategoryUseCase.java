@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
+import br.com.todolist.erroshandles.ResourceNotFoundException;
 import br.com.todolist.modules.category.CategoryEntity;
 import br.com.todolist.modules.category.CategoryRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,11 +18,10 @@ public class UpdateCategoryUseCase {
 
     public CategoryEntity execute(UUID id, CategoryEntity entity) {
         CategoryEntity result = this.repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Category not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Task not found"));
 
         result.setName(entity.getName());
 
         return this.repository.save(result);
-
     }
 }
