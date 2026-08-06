@@ -16,4 +16,6 @@ public interface TaksRepository extends JpaRepository<TaskEntity, UUID> {
             @Param("categoryId") UUID categoryId,
             @Param("priority") Priority priority,
             @Param("status") Status status);
+
+    boolean existsByCategoryId(UUID categoryId);
 }
