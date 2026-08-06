@@ -1,6 +1,7 @@
 package br.com.todolist.modules.tasks.dto;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import br.com.todolist.modules.tasks.Priority;
@@ -16,7 +17,8 @@ public record TaskResponseDTO(
     LocalDate dueDate,
     Status status,
     UUID categoryId,
-    boolean overdue // RF05/RNF01: calculado aqui, não persistido
+    boolean overdue, // RF05/RNF01: calculado aqui, não persistido
+    LocalDateTime completedAt
 ) {
     public static TaskResponseDTO from(TaskEntity task) {
         boolean isOverdue = task.getDueDate() != null
@@ -31,7 +33,8 @@ public record TaskResponseDTO(
             task.getDueDate(),
             task.getStatus(),
             task.getCategoryId(),
-            isOverdue
+            isOverdue,
+            task.getCompletedAt()
         );
     }
 }

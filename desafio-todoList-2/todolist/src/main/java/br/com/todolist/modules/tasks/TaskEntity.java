@@ -1,6 +1,7 @@
 package br.com.todolist.modules.tasks;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 
@@ -31,6 +32,8 @@ public class TaskEntity {
     private LocalDate dueDate; // data de vencimento
 
     private Status status;
+
+    private LocalDateTime completedAt;
 
     @ManyToOne()
     @JoinColumn(name="category_id", insertable = false, updatable = false)

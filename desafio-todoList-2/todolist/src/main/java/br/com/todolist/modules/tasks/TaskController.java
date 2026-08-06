@@ -39,17 +39,21 @@ public class TaskController {
     private final TaskFinishUseCase taskFinishUseCase;
 
     @GetMapping
-    public ResponseEntity<List<TaskEntity>> list(
+    public ResponseEntity<List<TaskResponseDTO>> list(
             @RequestParam(required = false) UUID categoryId,
             @RequestParam(required = false) Priority priority,
             @RequestParam(required = false) Status status) {
-        return ResponseEntity.ok(this.listAllTasksUseCase.execute(categoryId, priority, status));
+        List<TaskResponseDTO> result = this.listAllTasksUseCase.execute(categoryId, priority, status)
+                .stream()
+                .map(TaskResponseDTO::from)
+                .toList();
+        return ResponseEntity.ok(result);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TaskEntity> getById(@PathVariable UUID id) {
+    public ResponseEntity<TaskResponseDTO> getById(@PathVariable UUID id) {
         TaskEntity result = this.getTaskByIdUseCase.execute(id);
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(TaskResponseDTO.from(result));
     }
 
     @PostMapping
